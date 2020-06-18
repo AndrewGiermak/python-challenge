@@ -59,13 +59,18 @@ with open("budget_data.csv", "r") as csvfile:
     # create the txt file for the output
     text_path = "pybank_results.txt"
     with open(text_path, "w") as txt_file:
-        txt_file.write("Total Months: " + str(Months))
-        txt_file.write("/n")
-        txt_file.write("Total Revenue: " + " $" + str(Net_Revenue))
-        txt_file.write("/n")
-        txt_file.write("Average Change: " + " $" + str(Average_Revenue_Change))            
-        txt_file.write("/n")
-        txt_file.write("Largest Monthly Increase: " + str(Max_Increase_Date) + " $" + str(Max_Increase_Change))
-        txt_file.write("/n")
-        txt_file.write("Largest Monthly Decrease: " + str(Max_Decrease_Date) + " $" + str(Max_Decrease_Change))
+        txt_file.write("Total Months: " + str(Months) + "\r\n" 
+        
+        "Total Revenue: " + " $" + str(Net_Revenue) + "\r\n" 
 
+        "Average Change: " + " $" + str(Average_Revenue_Change) + "\r\n" 
+
+        "Largest Monthly Increase: " + str(Max_Increase_Date) + " $" + str(Max_Increase_Change) + "\r\n" 
+
+        "Largest Monthly Decrease: " + str(Max_Decrease_Date) + " $" + str(Max_Decrease_Change))
+
+
+
+
+    
+  
