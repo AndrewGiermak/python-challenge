@@ -1,71 +1,62 @@
-# import the csv file
+# import csv file
 import os
 import csv
-filepath = os.path.join("learnpython", "budget_data.csv")
+import collections
+from collections import Counter
 
-# open the csv
-with open("budget_data.csv", "r") as csvfile:
-    csv_reader = csv.reader(csvfile, delimiter =",")
-    csv_header = next(csv_reader)
+filepath = os.path.join("learnpython","election_data1.csv")
 
-    # set variables, arrays
-    Months = 0
-    Net_Revenue = 0
-    Average_Revenue_Change = 0
-    Total_Change = 0
-    Max_Increase_Change = 0
-    Max_Decrease_Change = 0
+# read file, header
+with open("election_data1.csv", "r") as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=',')
+    csvheader = next(csvreader)
 
-    Date = []
-    Revenue = []
-    Revenue_Change = []
+# set variables
+    Vote_Count = Counter()
 
-    Max_Increase_Date = None
-    Max_Decrease_Date = None
+    Candidates = []
+    County = []
+    Percent = []
+    Answer = []
 
-    # create loop to find number of Months
-    for row in csv_reader:
-        Months += 1
+# append Candidates
+    for row in csvreader:
+        Candidates.append(row[2])
 
-        # find Net_Revenue
-        Net_Revenue = Net_Revenue + int(row[1])
+# get total votes
+    Total_Votes = len(Candidates)
 
-        # append each column
-        Date.append(row[0])
-        Revenue.append(row[1])
+# count votes for each candidate
+    for Name in Candidates:
+        Vote_Count[Name] += 1
+    
+    Names = tuple(Vote_Count.keys())
+    
+    Votes = tuple(Vote_Count.values())
 
-    # find average of the changes for the entire period
-    for i in range(len(Revenue)-1):
-        Total_Change = int(Revenue[i]) - int(Revenue[i-1])
-        Revenue_Change.append(Total_Change)
-    Average_Revenue_Change = (Total_Change/Months)
+    # get the percentages
+    for Value in Votes:
+        Percent.append((int(Value)/Total_Votes)*100)
 
-    # find the largest changes month to month
-    Max_Increase_Change = max(Revenue_Change)
-    Max_Decrease_Change = min(Revenue_Change)
+# print everything
+    Answer.append("Election Results")
+    Answer.append("______")
+    Answer.append("Total Votes: " + str(Total_Votes))
+    Answer.append("______")
+    for x in range(len(Names)):
+        Answer.append(Names[x] + ": " + str(round(Percent[x], 3)) + "% " + "(" + str(Votes[x]) + ")")
+    Answer.append("______")
+    Answer.append("Winner: " + str(Names[0]))
 
-    # put the dates with the maxs
-    Max_Increase_Date = str(Date[Revenue_Change.index(max(Revenue_Change))])
-    Max_Decrease_Date = str(Date[Revenue_Change.index(min(Revenue_Change))])
+    print("\n".join((Answer)))
 
-    # print the outputs
-    print("Financial Analysis")
-    print("Total Months: " + str(Months))
-    print("Total Revenue: " + " $" + str(Net_Revenue))
-    print("Average Change: " + " $" + str(round(Average_Revenue_Change)))
-    print("Largest Monthly Increase: " + str(Max_Increase_Date) + " $" + str(Max_Increase_Change))
-    print("Largest Monthly Decrease: " + str(Max_Decrease_Date) + " $" + str(Max_Decrease_Change))
-
-    # create the txt file for the output
-    text_path = "pybank_results.txt"
+ # create the txt file for the output
+    text_path = "pypoll_results.txt"
     with open(text_path, "w") as txt_file:
-        txt_file.write("Total Months: " + str(Months) + "\r\n" 
-        
-        "Total Revenue: " + " $" + str(Net_Revenue) + "\r\n" 
-
-        "Average Change: " + " $" + str(round(Average_Revenue_Change)) + "\r\n" 
-
-        "Largest Monthly Increase: " + str(Max_Increase_Date) + " $" + str(Max_Increase_Change) + "\r\n" 
-
-        "Largest Monthly Decrease: " + str(Max_Decrease_Date) + " $" + str(Max_Decrease_Change))
-
+        txt_file.write("Election Results" + "\r\n"
+        "Total Votes: " + str(Total_Votes) + "\r\n"
+        "Khan: " + str(round(Percent[0], 3)) + "% " + "(" + str(Votes[0]) + ")" + "\r\n"
+        "Correy: " + str(round(Percent[1], 3)) + "% " + "(" + str(Votes[1]) + ")" + "\r\n"
+        "Li: " + str(round(Percent[2], 3)) + "% " + "(" + str(Votes[2]) + ")" + "\r\n"
+        "O'Tooley: " + str(round(Percent[3], 3)) + "% " + "(" + str(Votes[3]) + ")" + "\r\n"
+        "Winner: " + str(Names[0]))
