@@ -52,7 +52,7 @@ with open("budget_data.csv", "r") as csvfile:
     print("Financial Analysis")
     print("Total Months: " + str(Months))
     print("Total Revenue: " + " $" + str(Net_Revenue))
-    print("Average Change: " + " $" + str(Average_Revenue_Change))
+    print("Average Change: " + " $" + str(round(Average_Revenue_Change)))
     print("Largest Monthly Increase: " + str(Max_Increase_Date) + " $" + str(Max_Increase_Change))
     print("Largest Monthly Decrease: " + str(Max_Decrease_Date) + " $" + str(Max_Decrease_Change))
 
@@ -63,14 +63,9 @@ with open("budget_data.csv", "r") as csvfile:
         
         "Total Revenue: " + " $" + str(Net_Revenue) + "\r\n" 
 
-        "Average Change: " + " $" + str(Average_Revenue_Change) + "\r\n" 
+        "Average Change: " + " $" + str(round(Average_Revenue_Change)) + "\r\n" 
 
         "Largest Monthly Increase: " + str(Max_Increase_Date) + " $" + str(Max_Increase_Change) + "\r\n" 
 
         "Largest Monthly Decrease: " + str(Max_Decrease_Date) + " $" + str(Max_Decrease_Change))
 
-
-
-
-    
-  
